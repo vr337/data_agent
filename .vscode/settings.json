@@ -1,0 +1,12 @@
+{
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+    "todo-tree.ripgrep.ripgrep": "E:\\Service\\ripgrep-15.2.0-x86_64-pc-windows-msvc\\rg.exe"
+}

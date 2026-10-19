@@ -8,5 +8,6 @@
     "terminal.integrated.env.osx": {
         "PYTHONPATH": "${workspaceFolder}"
     },
-    "todo-tree.ripgrep.ripgrep": "E:\\Service\\ripgrep-15.2.0-x86_64-pc-windows-msvc\\rg.exe"
+    "todo-tree.ripgrep.ripgrep": "E:\\Service\\ripgrep-15.2.0-x86_64-pc-windows-msvc\\rg.exe",
+    "python.terminal.useEnvFile": true
 }

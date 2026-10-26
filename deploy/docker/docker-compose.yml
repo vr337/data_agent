@@ -57,7 +57,7 @@ services:
     container_name: data_agent_embedding
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8899:80"
     environment:
       MODEL_ID: BAAI/bge-large-zh-v1.5        
       HF_ENDPOINT: https://hf-mirror.com      

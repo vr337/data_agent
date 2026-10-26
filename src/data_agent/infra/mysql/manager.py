@@ -2,7 +2,6 @@
 MySql管理模块
 """
 
-
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -22,11 +21,11 @@ class MySqlClientManager:
         self._session_factory: async_sessionmaker[AsyncSession] | None = None
 
     @property
-    def _db_url(self)->str:
-        return f"mysql+asyncmy://{self._config.user}:{self._config.password}@{self._config.host}/{self._config.database}?charset=utf8mb4"
+    def _db_url(self) -> str:
+        return f"mysql+asyncmy://{self._config.user}:{self._config.password}@{self._config.host}:{self._config.port}/{self._config.database}?charset=utf8mb4"
 
     @property
-    def session_factory(self)->str:
+    def session_factory(self) -> async_sessionmaker[AsyncSession]:
         if self._session_factory is None:
             raise RuntimeError("请先调用init_db方法进行初始化")
         return self._session_factory
@@ -59,18 +58,20 @@ class MySqlClientManager:
             self._engine = None
             self._session_factory = None
 
-_dw_mysql_manager:MySqlClientManager | None =None
-_meta_mysql_manager:MySqlClientManager | None=None
 
-def get_dw_mysql_manager()->MySqlClientManager:
+_dw_mysql_manager: MySqlClientManager | None = None
+_meta_mysql_manager: MySqlClientManager | None = None
+
+
+def get_dw_mysql_manager() -> MySqlClientManager:
     global _dw_mysql_manager
     if _dw_mysql_manager is None:
-        _dw_mysql_manager= MySqlClientManager(app_config.db_dw)
+        _dw_mysql_manager = MySqlClientManager(app_config.db_dw)
     return _dw_mysql_manager
 
 
-def get_meta_mysql_manager()->MySqlClientManager:
+def get_meta_mysql_manager() -> MySqlClientManager:
     global _meta_mysql_manager
     if _meta_mysql_manager is None:
-        _meta_mysql_manager= MySqlClientManager(app_config.db_meta)
-    return _dw_mysql_manager
+        _meta_mysql_manager = MySqlClientManager(app_config.db_meta)
+    return _meta_mysql_manager

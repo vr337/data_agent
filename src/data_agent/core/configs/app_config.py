@@ -1,3 +1,4 @@
+"""加载app_config.yml配置模块"""
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -58,6 +59,8 @@ class ESConfig:
 @dataclass
 class LLMConfig:
     model_name: str
+    model_provider:str
+    base_url:str
     api_key: str
 
 
@@ -76,7 +79,7 @@ class AppConfig:
 # 将app_config.yml配置数据加载成AppConfig对象
 
 # app_yml配置
-_app_yml_path=Path(__file__).parents[4] / "configs" / "app_config.yml"
+_app_yml_path=Path(__file__).parents[4] / "configs" / "app_config.yaml"
 
 # 加载成对象
 app_config:AppConfig=OmegaConf.to_object(

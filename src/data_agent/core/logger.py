@@ -1,8 +1,7 @@
 """日志配置模块"""
 
-from math import sin
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from loguru import logger
 

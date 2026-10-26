@@ -7,6 +7,8 @@ from data_agent.infra.mysql.models.base import Base
 
 
 class MetricInfoORM(Base):
+    __tablename__ = "metric_info"
+
     id: Mapped[str] = mapped_column(
         String(64), nullable=False, primary_key=True, comment="指标编码"
     )

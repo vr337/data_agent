@@ -12,7 +12,7 @@ class QdrantClientManager:
         self._qdrant_config = qdrant_config
         self._client: AsyncQdrantClient | None = None
 
-    def init_qdrant(self):
+    def init_qdrant(self)->None:
         """初始化qdrant"""
         if self._client is None:
             self._client = AsyncQdrantClient(

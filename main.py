@@ -1,27 +1,38 @@
-from contextlib import asynccontextmanager
+import uuid
 
-from fastapi import FastAPI
+import uvicorn
+from fastapi import FastAPI, Request
 
-from data_agent.infra.embedding.manager import get_embedding_client_manger
-from data_agent.infra.mysql.manager import get_dw_mysql_manager, get_meta_mysql_manager
-from data_agent.infra.qdrant.manager import get_qdrant_client_manager
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # fast api启动时执行
-    # 初始化数据库
-    get_dw_mysql_manager().init_db()
-    get_meta_mysql_manager().init_db()
-    # 初始化Qdrant向量数据库的客户端
-    get_qdrant_client_manager().init_qdrant()
-    # 初始化嵌入模型
-    get_embedding_client_manger().init_client()
-    yield
-    # fast api 销毁时执行
-    await get_dw_mysql_manager().close()
-    await get_meta_mysql_manager().close()
-    await get_qdrant_client_manager().close()
-
+from data_agent.api.routers.query import query_router
+from data_agent.core.context import set_request_id
+from data_agent.core.lifespan import lifespan
 
 app = FastAPI(lifespan=lifespan)
+
+# 路由器挂载
+app.include_router(query_router, prefix="/api")
+
+
+@app.middleware("http")
+async def add_request_id(request: Request, call_next):
+    """
+    全局中间件，拦截所有的http请求
+
+    Args:
+        request (Request): 请求参数
+        call_next (_type_): 下一个路由/路由函数
+    """
+    # 请求
+    # 1.给上下文设置request_id
+    set_request_id(uuid.uuid4().hex)
+    # 2.调用下一个中间件或路由函数
+    response = await call_next(request)
+    # 3.响应
+    return response
+
+
+app.middleware(add_request_id)
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

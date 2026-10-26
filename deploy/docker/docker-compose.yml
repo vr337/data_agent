@@ -10,7 +10,7 @@ services:
       MYSQL_USER: vr337
       MYSQL_PASSWORD: vr337
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./mysql:/docker-entrypoint-initdb.d

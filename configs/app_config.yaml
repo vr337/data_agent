@@ -13,7 +13,7 @@ logging:
 # 数据库meta的配置
 db_meta:
   host: 172.22.182.114
-  port: 3306
+  port: 3307
   user: vr337
   password: vr337
   database: meta
@@ -21,7 +21,7 @@ db_meta:
 # 数据库dw的配置
 db_dw:
   host: 172.22.182.114
-  port: 3306
+  port: 3307
   user: vr337
   password: vr337
   database: dw
@@ -35,7 +35,7 @@ qdrant:
 # embedding的配置
 embedding:
   host: 172.22.182.114
-  port: 8081
+  port: 8899
   model: BAAI/bge-large-zh-v1.5
 
 # es的配置
@@ -47,4 +47,6 @@ es:
 # llm的配置
 llm:
   model_name: deepseek-chat
+  model_provider: openai
+  base_url: <deepseek_base_url>
   api_key: <deepseek_api_key>

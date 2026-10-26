@@ -66,7 +66,7 @@ if __name__ == "__main__":
             ],
         )
         print(result)
-        # 刷新保存索引数据
+        # 刷新保存索引数据，要不然就要等两秒
         await client.indices.refresh(index=index_name)
 
         # 全文搜索
